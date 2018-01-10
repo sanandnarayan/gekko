@@ -67,6 +67,13 @@ router.post('/api/getCandles', require(ROUTE('getCandles')));
 //   ws.on('message', _.noop);
 // });
 
+var auth = require('http-auth');
+var basic = auth.basic({
+  realm: "Restricted",
+  file: "/home/ubuntu/gekko/.htpasswd"
+});
+// Enable auth.
+app.use(auth.koa(basic));
 
 app
   .use(cors())
@@ -74,7 +81,8 @@ app
   .use(bodyParser())
   .use(require('koa-logger')())
   .use(router.routes())
-  .use(router.allowedMethods());
+  .use(router.allowedMethods())
+  .use( auth.koa(basic) );
 
 server.timeout = config.api.timeout||120000;
 server.on('request', app.callback());
