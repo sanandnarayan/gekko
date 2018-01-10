@@ -151,6 +151,7 @@ Trader.prototype.getPortfolio = function(callback) {
       { name: this.currency, amount: currencyAmount },
     ];
 
+    if(!err){ err = { } };
     return callback(err.message, portfolio);
   };
 
@@ -190,6 +191,8 @@ Trader.prototype.getTicker = function(callback) {
       bid: parseFloat(result.bidPrice),
     };
 
+    console.log(ticker);
+    if(!err){ err = { } };
     callback(err.message, ticker);
   };
 
