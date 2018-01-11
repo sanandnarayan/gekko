@@ -342,6 +342,7 @@ Trader.prototype.checkOrder = function(order, callback) {
 
     var stillThere =
       data.status === 'NEW' || data.status === 'PARTIALLY_FILLED';
+    if(!err){ err = { } };
     callback(err.message, !stillThere);
   };
 
